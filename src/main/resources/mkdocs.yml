@@ -1,0 +1,42 @@
+site_name: Ansible role IntelliJ
+site_description: Configures intellij project from templates
+site_author: Hiberbee
+site_url: https://hiberbee/github.io/ansible-role-intellij
+repo_name: Hiberbee/ansible-role-intellij
+repo_url: https://github.com/Hiberbee/ansible-role-intellij
+copyright: 'Copyright &copy; 2019 Hiberbee'
+
+theme: 'material'
+extra:
+  palette:
+    primary: 'red'
+  social:
+    - type: 'github'
+      link: 'https://github.com/Askent'
+
+google_analytics:
+  - 'UA-134817745-1'
+  - 'auto'
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+
+nav:
+  - Home: index.md
+  - User guide:
+      - Variables: guide/variables.md
+  - About:
+      - Release notes: about/history.md

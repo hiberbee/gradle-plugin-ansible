@@ -1,0 +1,30 @@
+{% if gradle.buildscript is defined %}
+buildscript {
+{% if gradle.buildscript.repositories is defined %}
+  repositories {
+{%- for repository in gradle.buildscript.repositories %}
+    {{ repository }}
+{% endfor -%}
+  }
+{% endif %}
+{% if gradle.buildscript.dependencies is defined %}
+  dependencies {
+{%- for configuration,configurationDependencies in gradle.buildscript.dependencies.items() %}
+{%- for dependency in configurationDependencies %}
+    {{ configuration }}("{{ dependency }}")
+{% endfor -%}
+{% endfor -%}
+  }
+{% endif %}
+}
+{% endif %}
+{% if gradle.plugins is defined %}
+plugins {
+{%- for plugin  in gradle.plugins %}
+  id "{{ plugin.id }}" {%- if plugin.version %} version "{{ plugin.version }}" {% endif -%}
+{% endfor -%}
+}
+{% endif %}
+{%- if gradle.dependencies is defined %}
+apply from: "gradle/dependencies.gradle"
+{% endif -%}

@@ -1,0 +1,12 @@
+repositories {
+{% for repository in gradle.repositories %}
+  {{ repository }}
+{% endfor %}
+}
+dependencies {
+{% for configuration,configurationDependencies in gradle.dependencies.items() %}
+{% for dependency in configurationDependencies %}
+  {{ configuration }}("{{ dependency }}")
+{% endfor %}
+{% endfor %}
+}

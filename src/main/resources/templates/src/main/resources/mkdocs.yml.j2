@@ -1,0 +1,42 @@
+site_name: {{ project.name }}
+site_description: {{ project.description }}
+site_author: {{ maintainer.name }}
+site_url: https://{{ maintainer.organization }}.github.io/{{ project.name }}
+repo_name: {{ maintainer.organization }}/{{ project.name  }}
+repo_url: https://github.com/{{ maintainer.organization }}/{{ project.name }}
+copyright: 'Copyright &copy; 2019 {{ maintainer.organization|title }}'
+
+theme: 'material'
+extra:
+  palette:
+    primary: 'red'
+  social:
+    - type: 'github'
+      link: 'https://github.com/{{ maintainer.githubName }}'
+
+google_analytics:
+  - '{{ project.googleAnalytics }}'
+  - 'auto'
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+
+nav:
+  - Home: index.md
+  - User guide:
+      - Installation: guide/installation.md
+  - About:
+      - Release notes: about/history.md

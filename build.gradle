@@ -1,0 +1,52 @@
+/*
+ * Copyright (c) 2019. Hiberbee https://hiberbee.com"
+ *
+ * This file is part of the Hiberbee OSS. Licensed under the MIT License
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ */
+
+plugins {
+  id "jacoco"
+  id "groovy"
+  id "java-gradle-plugin"
+  id "com.gradle.plugin-publish" version "0.10.1"
+}
+repositories {
+  mavenCentral()
+}
+group = "com.hiberbee.gradle"
+version "0.2.0"
+test {
+  useJUnitPlatform()
+}
+gradlePlugin {
+  plugins {
+    ansiblePlugin {
+      id = "com.hiberbee.gradle.plugin.ansible"
+      implementationClass = "com.hiberbee.gradle.plugin.AnsiblePlugin"
+    }
+  }
+}
+pluginBundle {
+  website = "https://hiberbee.github.io/ansible-gradle-plugin"
+  vcsUrl = "https://github.com/hiberbee/ansible-gradle-plugin"
+  description = "Plugin adds couple of Ansible tasks, helping to generate configuration from Jinja templates, encrypt/decrypt secrets etc"
+  tags = ["ansible", "configuration-management"]
+  plugins {
+    ansiblePlugin {
+      displayName = "Ansible Gradle plugin"
+    }
+  }
+}
+dependencies {
+  compile localGroovy()
+  implementation "com.hubspot.jinjava:jinjava:2.5.0"
+  implementation "org.codehaus.groovy:groovy-all:2.5.6"
+  implementation "org.yaml:snakeyaml:1.24"
+  implementation gradleApi()
+  testImplementation "org.junit.jupiter:junit-jupiter:5.4.1"
+  testImplementation "org.junit.jupiter:junit-jupiter-engine:5.4.1"
+}
+

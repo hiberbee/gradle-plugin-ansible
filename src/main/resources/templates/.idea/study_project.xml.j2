@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+    <component name="StudySettings">
+        <StudyTaskManager>
+            <option name="VERSION" value="11"/>
+            <option name="myUserTests">
+                <map/>
+            </option>
+            <option name="course">
+              <Course>
+                    <option name="authors">
+                        <list>
+                            <StepikUserInfo>
+                                <option name="firstName" value="{{ courseInfo.author.firstName }}"/>
+                                <option name="guest" value="false"/>
+                                <option name="id" value="-1"/>
+                                <option name="lastName" value="{{ courseInfo.author.lastName }}"/>
+                            </StepikUserInfo>
+                        </list>
+                    </option>
+                    <option name="courseMode" value="Course Creator"/>
+                    <option name="courseType" value="PyCharm"/>
+                    <option name="customPresentableName"/>
+                    <option name="description" value="{{ courseInfo.summary }}"/>
+                    <option name="fromZip" value="false"/>
+                    <option name="index" value="-1"/>
+                    <option name="language" value="JAVA"/>
+                    <option name="languageCode" value="en"/>
+                    <option name="name" value="{{ courseInfo.title }}"/>
+                    <option name="stepikChangeStatus" value="Content changed"/>
+                    <option name="items">
+                        <list>
+{% for section in courseInfo.content %}
+{% set sectionId = loop.index0 %}
+                            <Section>
+                                <option name="courseId" value="{{ sectionId }}"/>
+                                <option name="customPresentableName" value="{{ section }}"/>
+                                <option name="id" value="{{ sectionId }}"/>
+                                <option name="index" value="{{ sectionId + 1 }}"/>
+                                <option name="name" value="{{ section }}"/>
+                                <option name="position" value="{{ sectionId }}"/>
+                                <option name="stepikChangeStatus" value="Content changed"/>
+                                <option name="updateDate" value="0"/>
+                                <option name="units"/>
+                                <option name="items">
+                                    <list>
+{% for lesson in sections[section].content %}
+{% set lessonId = loop.index0 %}
+                                        <Lesson>
+                                            <option name="customPresentableName"
+                                                    value="{{ lesson }}"/>
+                                            <option name="id" value="{{ lessonId }}"/>
+                                            <option name="index" value="{{ lessonId + 1 }}"/>
+                                            <option name="name" value="{{ lesson }}"/>
+                                            <option name="stepikChangeStatus" value="Content changed"/>
+                                            <option name="updateDate" value="0"/>
+                                            <option name="taskList">
+                                                <list>
+{% for task in lessons[lesson].content %}
+{% set taskId = loop.index0 %}
+                                                    <EduTask>
+                                                        <option name="additionalFiles">
+                                                            <map/>
+                                                        </option>
+                                                        <option name="customPresentableName"
+                                                                value="{{ task }}"/>
+                                                        <option name="descriptionFormat"
+                                                                value="md"/>
+                                                        <option name="descriptionText"
+                                                                value="{{ task }}"/>
+                                                        <option name="feedbackLink">
+                                                            <FeedbackLink>
+                                                                <option name="link"/>
+                                                                <option name="type" value="STEPIK"/>
+                                                            </FeedbackLink>
+                                                        </option>
+                                                        <option name="index" value="{{ taskId + 1 }}"/>
+                                                        <option name="name" value="{{ task }}"/>
+                                                        <option name="status" value="Solved"/>
+                                                        <option name="stepId" value="{{ taskId }}"/>
+                                                        <option name="stepikChangeStatus" value="Up to date"/>
+                                                        <option name="taskFiles">
+                                                            <map>
+{% for file in tasks[task].files %}
+                                                                <entry key="{{ file.name }}">
+                                                                    <value>
+                                                                        <TaskFile>
+                                                                            <option name="answerPlaceholders">
+                                                                                <list/>
+                                                                            </option>
+                                                                            <option name="highlightErrors"
+                                                                                    value="false"/>
+                                                                            <option name="name"
+                                                                                    value="{{ file.name }}"/>
+                                                                            <option name="text" value=""/>
+                                                                            <option name="trackChanges" value="true"/>
+                                                                            <option name="trackLengths" value="true"/>
+                                                                            <option name="userCreated" value="false"/>
+                                                                            <option name="visible" value="true"/>
+                                                                        </TaskFile>
+                                                                    </value>
+                                                                </entry>
+{% endfor %}
+                                                            </map>
+                                                        </option>
+                                                        <option name="testsText">
+                                                            <map>
+{% for test in tasks[task].tests %}
+                                                                <entry key="{{ test.name }}" value=""/>
+{% endfor %}
+                                                            </map>
+                                                        </option>
+                                                        <option name="updateDate" value="0"/>
+                                                    </EduTask>
+{% endfor %}
+                                                </list>
+                                            </option>
+                                            <option name="unitId" value="0"/>
+                                        </Lesson>
+{% endfor %}
+                                    </list>
+                                </option>
+                            </Section>
+{% endfor %}
+                        </list>
+                    </option>
+                </Course>
+          </option>
+        </StudyTaskManager>
+    </component>
+</project>

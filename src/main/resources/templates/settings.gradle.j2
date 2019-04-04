@@ -1,0 +1,6 @@
+rootProject.name = "{{ project.name }}"
+{% if gradle.includeBuilds is defined %}
+{% for item in gradle.includeBuilds %}
+includeBuild('{{ item }}')
+{% endfor %}
+{% endif %}
