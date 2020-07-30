@@ -1,5 +1,8 @@
-name: Continuous Integration workflow
+name: Build workflow
 on: push
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 jobs:
   gradle:
     name: Gradle build

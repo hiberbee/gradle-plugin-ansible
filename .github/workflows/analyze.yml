@@ -1,5 +1,8 @@
 name: Lint workflow
 on: push
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 jobs:
   lint:
     name: Lint sources
