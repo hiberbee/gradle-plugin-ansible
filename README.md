@@ -4,7 +4,7 @@ This plugin allows to create and configure Ansible tasks with Gradle
 
 ## Example
 
-```
+```groovy
 plugins {
   id "com.hiberbee.gradle.ansible" version "0.4.0"
 }
