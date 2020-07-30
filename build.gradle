@@ -28,15 +28,17 @@ idea {
   }
 }
 sonarqube {
-  property "sonar.login", System.getenv("SONAR_TOKEN")
-  property "sonar.organization", organization
-  property "sonar.projectKey", project.name
-  property "sonar.projectName", project.name
-  property "sonar.host.url", "https://sonarcloud.io"
-  property "sonar.java.binaries", "${project.buildDir}/libs"
-  property "sonar.groovy.libraries", "${project.buildDir}/classes/java/main"
-  property "sonar.groovy.test.libraries", "${project.buildDir}/classes/java/test"
-  property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/*.xml"
+  properties {
+    property "sonar.login", System.getenv("SONAR_TOKEN")
+    property "sonar.organization", organization
+    property "sonar.projectKey", project.name
+    property "sonar.projectName", project.name
+    property "sonar.host.url", "https://sonarcloud.io"
+    property "sonar.java.binaries", "${project.buildDir}/libs"
+    property "sonar.groovy.libraries", "${project.buildDir}/classes/java/main"
+    property "sonar.groovy.test.libraries", "${project.buildDir}/classes/java/test"
+    property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/*.xml"
+  }
 }
 
 repositories {
