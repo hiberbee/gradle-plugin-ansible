@@ -10,8 +10,34 @@ plugins {
   id "org.sonarqube" version "3.0"
 }
 
-group "com.hiberbee.gradle"
+def organization = "hiberbee"
+group "com.${organization}.gradle"
 version "0.4.0"
+
+idea {
+  module {
+    outputDir project.buildDir
+    downloadJavadoc false
+    downloadSources true
+    inheritOutputDirs true
+    excludeDirs += files(".gradle", ".idea", ".scannerwork", "gradle")
+    generatedSourceDirs += files(
+      "${project.buildDir}/generated/sources/annotationProcessor/java/main",
+      "${project.buildDir}/generated/sources/annotationProcessor/java/test"
+    )
+  }
+}
+sonarqube {
+  property "sonar.login", System.getenv("SONAR_TOKEN")
+  property "sonar.organization", organization
+  property "sonar.projectKey", project.name
+  property "sonar.projectName", project.name
+  property "sonar.host.url", "https://sonarcloud.io"
+  property "sonar.java.binaries", "${project.buildDir}/libs"
+  property "sonar.groovy.libraries", "${project.buildDir}/classes/java/main"
+  property "sonar.groovy.test.libraries", "${project.buildDir}/classes/java/test"
+  property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/*.xml"
+}
 
 repositories {
   mavenCentral()

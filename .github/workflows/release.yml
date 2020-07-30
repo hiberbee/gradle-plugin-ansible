@@ -1,12 +1,12 @@
 name: Continuous Integration workflow
-on: release
+on:
+  push:
+    tags:
+      - "*.*.*"
 jobs:
   gradle:
     name: Gradle build
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -14,14 +14,35 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Add Gradle Credentials
+      - name: Setup Gradle Credentials
         run: |
           echo "gradle.publish.key=${{ secrets.GRADLE_PUBLISH_KEY }} > ~/.gradle/gradle.properties"
           echo "gradle.publish.secret=${{ secrets.GRADLE_PUBLISH_KEY }} >> ~/.gradle/gradle.properties"
         env:
           GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
           GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
-      - name: Release plugin
+      - name: Create Github Release
+        id: github-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Publish to Gradle Portal
+        id: gradle
         uses: eskatos/gradle-command-action@v1
         with:
-          arguments: publishPlugins
+          arguments: publishPlugins -PprojVersion=${{ github.ref }}
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.github-release.outputs.upload_url }}
+          asset_path: ./build/libs/${{ github.repository  }}-${{ github.ref }}.jar
+          asset_name: gradle-plugin-ansible.jar
+          asset_content_type: application/java-archive
