@@ -12,29 +12,23 @@ package com.hiberbee.gradle.task
 
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.TaskAction
+import org.gradle.execution.commandline.TaskConfigurationException
 
-class VaultTask extends Exec {
+class PlaybookTask extends Exec {
 
   @Input
-  String file
+  String playbook
 
-  VaultTask() {
-    group = "vault"
-    description = "Encrypts or decrypts secret files"
-    executable = "ansible-vault"
+  PlaybookTask() {
+    group = "ansible"
+    description = "Run Ansible Playbook"
+    executable = "ansible-playbook"
   }
 
-  @TaskAction
-  void encrypt() {
-    super.args(new File(file).path)
+  @Override
+  protected void exec() {
+    def playbookFile = new File(playbook)
+    super.args(playbookFile.path)
     super.exec()
   }
-
-  @TaskAction
-  void decrypt() {
-    super.args(new File(file).path)
-    super.exec()
-  }
-
 }

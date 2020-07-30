@@ -9,9 +9,7 @@
 
 package com.hiberbee.gradle.plugin
 
-import com.hiberbee.gradle.task.VaultTask
-import com.hiberbee.gradle.task.TelepresenceTask
-import com.hiberbee.gradle.task.TemplatesTask
+
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -19,9 +17,16 @@ class AnsiblePlugin implements Plugin<Project> {
 
   @Override
   void apply(Project project) {
-    project.tasks.create("templates", TemplatesTask)
-    project.tasks.register("telepresence", TelepresenceTask)
-    project.tasks.register("encypt", VaultTask)
-    project.tasks.register("decrypt", VaultTask)
+    project.extensions.create("ansible", AnsiblePluginExtension)
+    project.sourceSets {
+      ansible {
+        resources.srcDirs = ["src/main/ansible"]
+      }
+    }
+
+    project.configurations {
+      ansible { visible = false }
+      ansibleImplementation.extendsFrom(ansible)
+    }
   }
 }
