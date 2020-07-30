@@ -1,8 +1,5 @@
 name: Lint workflow
 on: push
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 jobs:
   lint:
     name: Lint sources
@@ -28,6 +25,9 @@ jobs:
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: build
+        env:
+          GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
+          GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
       - name: Analyze sources with Sonarqube
         uses: eskatos/gradle-command-action@v1
         env:
