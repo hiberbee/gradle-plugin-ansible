@@ -75,6 +75,6 @@ dependencies {
   compile localGroovy()
   implementation gradleApi()
   testImplementation "org.junit.jupiter:junit-jupiter:5.7.0-RC1"
-  testImplementation "org.junit.jupiter:junit-jupiter-engine:5.7.0-RC1"
+  testImplementation "org.junit.jupiter:junit-jupiter-engine:5.8.0-M1"
 }
 
